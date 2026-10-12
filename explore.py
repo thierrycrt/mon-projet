@@ -222,7 +222,38 @@ print("Nombre de valeurs imputés par colonnes:",
       {col: df[f"{col}_imputed"].sum() for col in cols_list},
       )
 
-print(df)
+#print(df)
 
 #print(df['median_Value'])
 #print(df.info())
+
+print("############### exercice 2.6 ###################")
+
+ls = df["categorie"].value_counts()
+mapping_categorie ={
+    "Textiles": "Textiles",
+    "Plastique": "Plastique",
+    "PlastiqueS": "Plastique",
+    "Papier": "Papier", 
+    "Verre": "Verre",
+    "Métal": "Métal"
+}
+
+df["official_cat"] = df["categorie"].map(mapping_categorie)
+unknown_cat = df[df["official_cat"].isna()]["categorie"].nunique()
+
+print(f"\nLibellés non reconnus / inconnus : {unknown_cat}")
+
+df["official_cat"] = df["official_cat"].fillna(df["categorie"])
+df=df.drop(columns=["official_cat"])
+
+
+
+print(f"Nombre de catégories inconnues : {unknown_cat}")
+#print(f"Nombre de catégories officielles : {df['official_cat'].nunique()}")
+
+
+
+
+        
+

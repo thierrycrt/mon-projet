@@ -1,8 +1,8 @@
 site,semaine,categorie,collecte_kg,revendu_kg,recycle_kg,dechetterie_kg,attente_kg
-Montreuil,8,Textiles,1206,249,221,635,101
-Montreuil,8,Papier,850,,600,100,50
-Montreuil,8,Plastique,720,80,500,90,50
+MONTREUIL,8,Textiles,1206,249,221,635,101
+MONTREUIL,8,Papier,850,,600,100,50
+Montreuil,8,PlastiqueS,720,80,500,90,50
 Montreuil,8,Verre,940,50,,70,40
-Montreuil,8,Métal,430,120,250,40,20
+MontreuilS,8,Métal,430,120,250,40,20
 Montreuil,8,Plastique,610,90,400,80,40
 Montreuil,8,Plastique,720,80,500,90,50
