@@ -101,7 +101,9 @@ print(f"le taux de recyclage  est de : {tx(df):.2f} %")
 #le_maxi = maxi(lignes)
 print(f"la quantité maximum de collecte est de :{max(df)} Kg")
 
-print("############### exercice 6 ###################")  
+
+
+print("############### exercice 2.3 ###################")  
 
 #charger un fichier    
 lignes = load_rows(open(r"data/pesees.csv"))
@@ -115,6 +117,36 @@ print(f"le taux de recyclage  est de : {taux(lignes):.2f} %")
 #le_maxi = maxi(lignes)
 print(f"la quantité maximum de collecte est de :{maxi(lignes)} Kg")    
 
-print("############### exercice 7 ###################")  
+
+
+
+print("############### pandas exercice 2.2 ###################")  
+df = pd.read_csv("data/pesees.csv")
+
+#le_total = total(lignes)
+print(f"la quantité totale recyclé est de :{total(df)} Kg")
+
+#le_taux = taux(lignes)
+print(f"le taux de recyclage  est de : {tx(df):.2f} %")
+
+
+#le_maxi = maxi(lignes)
+print(f"la quantité maximum de collecte est de :{max(df)} Kg")
+
+print("############### exercice 2.3 ###################") 
+df = pd.read_csv("data/brut/pesees.csv")
+
+cols_numeriques = ["revendu_kg", "recycle_kg", "dechetterie_kg"]
+for col in cols_numeriques:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+        
+print("-------------- VALEURS MANQUANTES APRÈS TYPAGE ------------------")    
+ 
+print(df.isna().sum())  
+ 
+print("-------------- infos APRÈS TYPAGE ------------------")  
+        
+print(df.info())
 
     
