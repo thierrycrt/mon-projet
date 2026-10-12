@@ -1,6 +1,6 @@
 import csv 
 
-def charger_donnees(chemin):
+def load_rows(chemin):
     read = csv.DictReader(chemin)
     lignes=[]    
     for raw in read: 
