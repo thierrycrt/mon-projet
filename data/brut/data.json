@@ -1,0 +1,49 @@
+{
+    "students": [
+        {
+            "name": "Alice",
+            "age": 25,
+            "gender": "F",
+            "courses": [
+                {
+                    "name": "Math",
+                    "grade": 85
+                },
+                {
+                    "name": "Science",
+                    "grade": 92
+                }
+            ]
+        },
+        {
+            "name": "Bob",
+            "age": 30,
+            "gender": "M",
+            "courses": [
+                {
+                    "name": "Math",
+                    "grade": 75
+                },
+                {
+                    "name": "Science",
+                    "grade": 80
+                }
+            ]
+        },
+        {
+            "name": "Charlie",
+            "age": 20,
+            "gender": "M",
+            "courses": [
+                {
+                    "name": "Math",
+                    "grade": 95
+                },
+                {
+                    "name": "Science",
+                    "grade": 90
+                }
+            ]
+        }
+    ]
+}
