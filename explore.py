@@ -1,6 +1,8 @@
 
-from indicateurs import total_recycled , taux, maxi
-from charger import charger_donnees
+from indicateurs import total_recycled , taux, maxi, tx, max, total
+from load import load_rows
+from nettoyage import df
+import pandas as pd
 
 
 print("############### exercice 3 ###################")  
@@ -87,21 +89,22 @@ print(f"{site}, semaine: {ligne["semaine"]} :{kg} kg triés ")
 
 
 print("############### exercice 5 ###################")  
+df = pd.read_csv("data/pesees.csv")
 
 #le_total = total(lignes)
-print(f"la quantité totale recyclé est de :{total_recycled(lignes)} Kg")
+print(f"la quantité totale recyclé est de :{total(df)} Kg")
 
 #le_taux = taux(lignes)
-print(f"le taux de recyclage  est de : {taux(lignes):.2f} %")
+print(f"le taux de recyclage  est de : {tx(df):.2f} %")
 
 
 #le_maxi = maxi(lignes)
-print(f"la quantité maximum de collecte est de :{maxi(lignes)} Kg")
+print(f"la quantité maximum de collecte est de :{max(df)} Kg")
 
 print("############### exercice 6 ###################")  
 
 #charger un fichier    
-lignes = charger_donnees(open(r"data/pesees.csv"))
+lignes = load_rows(open(r"data/pesees.csv"))
 #le_total = total(lignes)
 print(f"la quantité totale recyclé est de :{total_recycled(lignes)} Kg")
 

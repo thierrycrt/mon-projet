@@ -14,6 +14,13 @@ def taux(lignes):
     
     return  pourcent
 
+def tx(df):
+    
+    #tx_recycled   = df["recycled_kg"].sum()
+    #total_collected =df["collected_kg"].sum()
+    percent=(df["recycle_kg"].sum()/df["collecte_kg"].sum())*100
+    
+    return percent
 
 #calcul du  total   recycle
 def total_recycled(lignes):  
@@ -21,7 +28,10 @@ def total_recycled(lignes):
     for line in lignes:
         tt += line["recycle_kg"]
     
-    return tt     
+    return tt   
+
+def total(df):
+    return df["recycle_kg"].sum()  
 
 #collecte maximum
 def maxi(lignes):
@@ -31,4 +41,8 @@ def maxi(lignes):
        if line["collecte_kg"] > max:
            max = line["collecte_kg"]
            
-    return max       
+    return max  
+
+def max(df):
+    return df["collecte_kg"].max()  
+     

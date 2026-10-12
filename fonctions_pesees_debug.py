@@ -64,7 +64,7 @@ def collecte_maximum(rows):
 
 def main():
     """Charge le CSV puis affiche deux appels d'exemple."""
-    from charger import load_rows  # votre fonction de chargement
+    from load import load_rows  # votre fonction de chargement
 
     chemin = sys.argv[1]+"data/" if len(sys.argv) > 1 else "data/pesees.csv"
     print(chemin)
