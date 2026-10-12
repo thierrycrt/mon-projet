@@ -149,20 +149,80 @@ print("-------------- infos APRÈS TYPAGE ------------------")
         
 print(df.info())
 
-print("############### exercice 2.4 ###################")    
+print("############### exercice 2.4 ###################")   
+ 
 print(df.duplicated().sum())
-lignes_initiales = len(df)
+init_lines = len(df)
+
+
+        
+        
 
 df.duplicated(subset=None, keep='first')
-nb_doublons_stricts = df.duplicated().sum()
+strict_duplicates_nb = df.duplicated().sum()
 df.drop_duplicates(subset=None, keep='first', inplace=True)
-nb_doublons_metier = df.duplicated(subset=None, keep='last' ).sum()
+job_duplicate_job = df.duplicated(subset=None, keep='last' ).sum()
 print(df.duplicated().sum())
 
 print("--- BILAN DÉDOUBLONNAGE ---")
 
 final_line=len(df)
-print(f"Lignes initiales : {lignes_initiales}")
-print(f"Doublons stricts supprimés : {nb_doublons_stricts}")
-print(f"Doublons métier supprimés : {nb_doublons_metier}")
+print(f"Lignes initiales : {init_lines}")
+print(f"Doublons stricts supprimés : {strict_duplicates_nb}")
+print(f"Doublons métier supprimés : {job_duplicate_job}")
 print(f"Nombre de lignes après suppression des doublons : {final_line}")
+
+
+print("############### exercice 2.5 ###################")  
+
+print(df.isna().sum())
+
+#creation des liste de numeriques pour l'imputation
+cols_list = [
+    "collecte_kg",
+    "revendu_kg",
+    "recycle_kg",
+    "dechetterie_kg",
+    "attente_kg",
+]
+
+#parcours de la liste des colonnes pour convertir en numérique et gérer les valeurs manquantes
+for col in cols_list:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+
+# init des valeurs manquantes avant imputation        
+manquants_avant = df[cols_list].isna().sum().sum()
+      
+
+
+# Création des colonnes drapeaux (flags) pour tracer les imputations
+for col in cols_list:
+    df[f"{col}_imputed"] = df[col].isna()  
+          
+# Imputation par la médiane croisée site x categorie (ou juste categorie si site indisponible)
+for col in cols_list:
+    median_Value = df.groupby(['recycle_kg','revendu_kg'])[col].transform('median')
+    df[col]=df[col].fillna(median_Value)
+    # sécurité si la médiane croisée est NaN, on remplace par la médiane globale de la colonne
+    df[col]=df[col].fillna(df[col].median())  # fallback si la médiane croisée est NaN
+
+
+manquants_apres = df[cols_list].isna().sum().sum()
+
+# -controle ---------------
+print(f"Nombre de valeurs manquantes avant imputation : {manquants_avant}") 
+print(f"Nombre de valeurs manquantes après imputation : {manquants_apres}")
+print(f"Nombre de valeurs manquantes après imputation traité : {manquants_avant-manquants_apres} valeurs imputées") 
+
+print(median_Value)
+
+print("Nombre de valeurs imputés par colonnes:",
+      {col: df[f"{col}_imputed"].sum() for col in cols_list},
+      )
+
+print(df)
+
+#print(df['median_Value'])
+#print(df.info())
