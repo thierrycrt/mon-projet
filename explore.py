@@ -149,4 +149,20 @@ print("-------------- infos APRÈS TYPAGE ------------------")
         
 print(df.info())
 
-    
+print("############### exercice 2.4 ###################")    
+print(df.duplicated().sum())
+lignes_initiales = len(df)
+
+df.duplicated(subset=None, keep='first')
+nb_doublons_stricts = df.duplicated().sum()
+df.drop_duplicates(subset=None, keep='first', inplace=True)
+nb_doublons_metier = df.duplicated(subset=None, keep='last' ).sum()
+print(df.duplicated().sum())
+
+print("--- BILAN DÉDOUBLONNAGE ---")
+
+final_line=len(df)
+print(f"Lignes initiales : {lignes_initiales}")
+print(f"Doublons stricts supprimés : {nb_doublons_stricts}")
+print(f"Doublons métier supprimés : {nb_doublons_metier}")
+print(f"Nombre de lignes après suppression des doublons : {final_line}")
