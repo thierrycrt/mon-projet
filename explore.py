@@ -21,22 +21,38 @@ print(df.head())
 
 
 print("############### pandas exercice 2.2 ###################")  
-df = pd.read_csv("data/pesees.csv")
 
-#le_total = total(lignes)
-print(f"la quantité totale recyclé est de :{total(df)} Kg")
+
+
+#df = pd.read_csv("data/brut/pesees.csv")
+
 
 #le_taux = taux(lignes)
-print(f"le taux de recyclage  est de : {tx(df):.2f} %")
+tri_total = df["revendu_kg"] + df["recycle_kg"] + df["dechetterie_kg"]
+tx = (df["revendu_kg"] + df["recycle_kg"]).sum() / tri_total.sum()
+print(f"le taux de recyclage  est de : {tx:.1f} %")
 
 
-#le_maxi = maxi(lignes)
-print(f"la quantité maximum de collecte est de :{max(df)} Kg")
+#le_total = total(lignes)
+total_kg = tri_total.sum()
+print(f"Total matière : {total_kg:,.0f} kg")
+
+
+
+
+# 3. Verification de la categorie la plus jetee
+# (Exemple : categorie avec la plus grande quantité en déchetterie/poubelle)
+cat_top = df.groupby("categorie")["dechetterie_kg"].sum().idxmax()
+print(f"Catégorie la plus jetée : {cat_top}")
+
+
+
+
 
 print("############### exercice 2.3 ###################") 
-df = pd.read_csv("data/brut/pesees.csv")
+#df = pd.read_csv("data/brut/pesees.csv")
 
-cols_numeriques = ["revendu_kg", "recycle_kg", "dechetterie_kg"]
+cols_numeriques = ["collecte_kg", "revendu_kg", "recycle_kg", "dechetterie_kg", "attente_kg"]
 for col in cols_numeriques:
     if col in df.columns:
         df[col] = pd.to_numeric(df[col], errors="coerce")
@@ -49,26 +65,33 @@ print("-------------- infos APRÈS TYPAGE ------------------")
         
 print(df.info())
 
-print("############### exercice 2.4 ###################")   
+print("############### exercice 2.4 ###################")  
+
+# 1. Chargement et typage 
+
+#df = pd.read_csv("data/brut/pesees.csv")
  
 print(df.duplicated().sum())
 init_lines = len(df)
 
 
-        
-        
 
-df.duplicated(subset=None, keep='first')
-strict_duplicates_nb = df.duplicated().sum()
-df.drop_duplicates(subset=None, keep='first', inplace=True)
-job_duplicate_job = df.duplicated(subset=None, keep='last' ).sum()
-print(df.duplicated().sum())
+#df.duplicated(subset=None, keep='first')
+
+strict_duplicated_nb = df.duplicated().sum()
+df=df.drop_duplicates(subset=None, keep='first', inplace=True)
+
+job_key = ["site", "semaine", "categorie"]
+job_duplicate_job = df.duplicated(subset=job_key).sum()
+
+
+df=df.drop_duplicates(subset=job_key, keep='last', inplace=True)
 
 print("--- BILAN DÉDOUBLONNAGE ---")
 
 final_line=len(df)
 print(f"Lignes initiales : {init_lines}")
-print(f"Doublons stricts supprimés : {strict_duplicates_nb}")
+print(f"Doublons stricts supprimés : {strict_duplicated_nb}")
 print(f"Doublons métier supprimés : {job_duplicate_job}")
 print(f"Nombre de lignes après suppression des doublons : {final_line}")
 
@@ -130,10 +153,12 @@ print("Nombre de valeurs imputés par colonnes:",
 #print(df.info())
 
 print("############### exercice 2.6 ###################")
-
+# 1. Chargement, typage, dédoublonnage et imputation
+df = pd.read_csv("data/brut/pesees.csv")
 
 ls = df["categorie"].value_counts()
-print(ls)
+
+#print(ls)
 mapping_categorie ={
     "Textiles": "Textiles",
     "Plastique": "Plastique",
