@@ -1,123 +1,23 @@
-
-from indicateurs import total_recycled , taux, maxi, tx, max, total
-from load import load_rows
-from nettoyage import df
 import pandas as pd
 
 
-print("############### exercice 3 ###################")  
-lignes = [
-    {
-        "site": "Bordeaux",
-        "semaine": 12,
-        "categorie": "Textiles",
-        "collecte_kg": 1206,
-        "revendu_kg": 249,
-        "recycle_kg": 221,
-        "dechetterie_kg": 635,
-        "attente_kg": 101
-    },
-    {
-        "site": "Bordeaux",
-        "semaine": 12,
-        "categorie": "metaux",
-        "collecte_kg": 1365,
-        "revendu_kg": 400,
-        "recycle_kg": 200,
-        "dechetterie_kg": 600,
-        "attente_kg": 165
-        
-    },
-    {
-        "site": "Bordeaux",
-        "semaine": 12,
-        "categorie": "Papiers",
-        "collecte_kg": 1300,
-        "revendu_kg": 300,
-        "recycle_kg": 300,
-        "dechetterie_kg": 600,
-        "attente_kg": 100
-        },
-    {
-        "site": "Bordeaux",
-        "semaine": 12,
-        "categorie": "bois",
-        "collecte_kg": 1400,
-        "revendu_kg": 400,
-        "recycle_kg": 200,
-        "dechetterie_kg": 600,
-        "attente_kg": 200        
-        
-    },
-    {
-        "site": "Bordeaux",
-        "semaine": 12,
-        "categorie": "verre",
-        "collecte_kg": 1000,
-        "revendu_kg": 200,
-        "recycle_kg": 200,
-        "dechetterie_kg": 500,
-        "attente_kg": 100
-        
-        }   
-    
-]
+print("############### pandas exercice 2.1 ###################")
 
 
-print(len(lignes))
-print(lignes[0]["site"])
+# Chargement du fichier CSV
+df = pd.read_csv("data/brut/pesees.csv")
 
-#for elements in lignes:
-    #print(elements["site"])
-    
-print("############### exercice 4 ###################")   
-nb=0   
-for ligne in lignes:
-    if ligne["site"]=="Bordeaux" and ligne["semaine"]==12:
-       nb += 1 
-kg = 0
-site=""
-for ligne in lignes:
-    if ligne["site"]=="Bordeaux" and ligne["semaine"]==12:
-      site = ligne["site"]
-      kg += ligne["collecte_kg"] + ligne["revendu_kg"]
-      
-      
-print(f"{site}, semaine: {ligne["semaine"]} :{nb} enregistrement ")
-print(f"{site}, semaine: {ligne["semaine"]} :{kg} kg triés ")
+# 1. Nombre de lignes et de colonnes
+print("--- SHAPE ---")
+print(df.shape)
 
+# 2. Types de colonnes et valeurs manquantes (trous)
+print("\n--- INFO ---")
+print(df.info())
 
-
-print("############### exercice 5 ###################")  
-df = pd.read_csv("data/pesees.csv")
-
-#le_total = total(lignes)
-print(f"la quantité totale recyclé est de :{total(df)} Kg")
-
-#le_taux = taux(lignes)
-print(f"le taux de recyclage  est de : {tx(df):.2f} %")
-
-
-#le_maxi = maxi(lignes)
-print(f"la quantité maximum de collecte est de :{max(df)} Kg")
-
-
-
-print("############### exercice 6 ###################")  
-
-#charger un fichier    
-lignes = load_rows(open(r"data/pesees.csv"))
-#le_total = total(lignes)
-print(f"la quantité totale recyclé est de :{total_recycled(lignes)} Kg")
-
-#le_taux = taux(lignes)
-print(f"le taux de recyclage  est de : {taux(lignes):.2f} %")
-
-
-#le_maxi = maxi(lignes)
-print(f"la quantité maximum de collecte est de :{maxi(lignes)} Kg")    
-
-
+# 3. Aperçu des premières lignes
+print("\n--- HEAD ---")
+print(df.head())
 
 
 print("############### pandas exercice 2.2 ###################")  
@@ -175,6 +75,8 @@ print(f"Nombre de lignes après suppression des doublons : {final_line}")
 
 print("############### exercice 2.5 ###################")  
 
+
+#Detect les valeur manquantes dans df et l'affiche sous forme de somme par colonnes
 print(df.isna().sum())
 
 #creation des liste de numeriques pour l'imputation
@@ -194,13 +96,13 @@ for col in cols_list:
 
 # init des valeurs manquantes avant imputation        
 manquants_avant = df[cols_list].isna().sum().sum()
-      
+
 
 
 # Création des colonnes drapeaux (flags) pour tracer les imputations
 for col in cols_list:
     df[f"{col}_imputed"] = df[col].isna()  
-          
+
 # Imputation par la médiane croisée site x categorie (ou juste categorie si site indisponible)
 for col in cols_list:
     median_Value = df.groupby(['recycle_kg','revendu_kg'])[col].transform('median')
@@ -229,7 +131,9 @@ print("Nombre de valeurs imputés par colonnes:",
 
 print("############### exercice 2.6 ###################")
 
+
 ls = df["categorie"].value_counts()
+print(ls)
 mapping_categorie ={
     "Textiles": "Textiles",
     "Plastique": "Plastique",
@@ -262,7 +166,46 @@ print(f"Lignes finales conservées : {len(df)}")
 print(df)
 
 
+print("############### exercice 2.7 ###################")
 
 
-        
+
+#value_control(df[cols_list])
+
+total_poid= (df["revendu_kg"] + df["recycle_kg"] + df["dechetterie_kg"] + df["attente_kg"])
+
+
+#print(total_poid)
+#print(df["collecte_kg"])
+
+#assert (df["collecte_kg"] == total_poid).all(), ("le poid total ne correspond pas au poid collecté")
+#control_poids(total_poid)
+
+# Assertion 1 : Aucun poids négatif
+assert (df[cols_list] >= 0).all().all(), (
+    "Erreur : Présence de poids négatifs !"
+)
+
+# Assertion 2 : Cohérence de la somme (collecte = revendu + recycle + dechetterie + attente)
+somme_poids = (
+    df["revendu_kg"] + df["recycle_kg"] + df["dechetterie_kg"] + df["attente_kg"]
+)
+
+
+# Assertion 3 : Unicité de la clé métier (site, semaine, categorie)
+assert not df.duplicated(subset=["site", "semaine", "categorie"]).any(), (
+    "Erreur : Doublons détectés sur la clé métier !"
+)
+
+# Assertion 4 : Aucune valeur manquante restante sur les poids
+assert df[cols_list].isna().sum().sum() == 0, (
+    "Erreur : Des valeurs manquantes persistent !"
+)
+
+assert (df["collecte_kg"] == somme_poids).all(), (
+    "Erreur : Incohérence dans la somme des poids !"
+)
+
+print("✅ Les 4 assertions sont validées avec succès !")
+
 
