@@ -103,7 +103,7 @@ print(f"la quantité maximum de collecte est de :{max(df)} Kg")
 
 
 
-print("############### exercice 2.3 ###################")  
+print("############### exercice 6 ###################")  
 
 #charger un fichier    
 lignes = load_rows(open(r"data/pesees.csv"))
@@ -244,13 +244,22 @@ unknown_cat = df[df["official_cat"].isna()]["categorie"].nunique()
 
 print(f"\nLibellés non reconnus / inconnus : {unknown_cat}")
 
-df["official_cat"] = df["official_cat"].fillna(df["categorie"])
+df["categorie"] = df["official_cat"].fillna(df["categorie"])
 df=df.drop(columns=["official_cat"])
 
 
+before_filter=len(df)
+place= ["Montreuil"]
+df=df[df["site"].isin(place)]
 
-print(f"Nombre de catégories inconnues : {unknown_cat}")
-#print(f"Nombre de catégories officielles : {df['official_cat'].nunique()}")
+line_out=before_filter-len(df)
+
+print("\n--- BILAN HARMONISATION & FILTRAGE ---")
+print(f"Nombre de catégories officielles uniques : {df['categorie'].nunique()}")
+print(f"Lignes hors périmètre retirées : {line_out}")
+print(f"Lignes finales conservées : {len(df)}")
+
+print(df)
 
 
 
