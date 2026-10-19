@@ -148,7 +148,7 @@ print(paires.sort_values(ascending=False).head(5))
 # recycle_kg      valorise_kg       0.890171 -> rapport avident , valorise est dans recycle
 # attente_kg      dechetterie_kg    0.872367 -> rapport as evident, en attente de quoi? de dechetterie?
 #                 collecte_kg       0.807582 -> si decheterie: rapport evident, + de collecte pplus de dechet 
-
+#les correlaation sont logique et mecanique
 print("############### pandas exercice Jour 3 exo 4 ###################")
 
 
