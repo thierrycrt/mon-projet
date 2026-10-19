@@ -69,6 +69,10 @@ print(collect_total)
 global_sum=df.valorise_kg.sum() / collect_total * 100
 print(f"\nTaux global de valorisation : {global_sum:.1f} %")
 
+constat 1: la part du metal dans le taux de collecte est tres faible 8.5%
+constat 2: le taux de valorisation du metal est le plus haut 86.5%
+constat 3 le textile est tres peu valorisé 38.72%
+
 print("############### pandas exercice Jour 3 exo 2 ###################")
 
 
@@ -77,15 +81,15 @@ import seaborn as sns
 
 # df = pd.read_csv("data/processed/pesees_clean.csv")
 
-ordre = df.groupby("categorie").valorise_kg.median().sort_values(ascending=False).index
+ordre = df.groupby("categorie").tx_valorise.median().sort_values(ascending=False).index
 
 sns.set_theme(palette="colorblind")   # couleurs lisibles par tout le monde
 plt.figure(figsize=(8, 5))
 
 print("------------------ligne1---------------------------")
 
-sns.barplot(data=df, x="categorie", y="valorise_kg", estimator="median", order=ordre)
-plt.title("Valorisation par catégorie en kg")
+sns.barplot(data=df, x="categorie", y="tx_valorise", estimator="median", order=ordre)
+plt.title("taux de Valorisation par catégorie en kg")
 plt.savefig("figures/comparaison_groupes.png", dpi=150, bbox_inches="tight")
 plt.close()   # ferme le graphique avant de dessiner le suivant
 
@@ -118,6 +122,9 @@ plt.title("Relation entre deux mesures numériques, recyclé et revendu par cat�
 plt.savefig("figures/relation.png", dpi=150, bbox_inches="tight")
 plt.close()   # ferme le graphique avant de dessiner le suivant
 
+
+# FIGURE SPONSOR : figures\comparaison_groupes.png — parce qu'on voit clairement due qualité de valorisation tres faible pour le textile et le verre
+
 print("############### pandas exercice Jour 3 exo 3 ###################")
 
 
@@ -135,11 +142,12 @@ paires = paires[paires.index.get_level_values(0) < paires.index.get_level_values
 print("\n=== Les 5 paires les plus corrélées ===")
 print(paires.sort_values(ascending=False).head(5))
 
-# attente_kg      dechetterie_kg    0.936034 -> pas de rapport evident
-# dechetterie_kg  revendu_kg        0.931491 -> aucun rapport
-# recycle_kg      valorise_kg       0.900707 -> rapport évident recycle et dans la valorisation
-# collecte_kg     tx_valorise       0.887331 -> rapport evident, la valorisation est dans la collecte
-# attente_kg      collecte_kg       0.873221 -> aucun rapport
+
+# dechetterie_kg  revendu_kg        0.930377 -> aucun rapport
+# collecte_kg     tx_valorise       0.893647 -> rapport evident , valorise est das collecte
+# recycle_kg      valorise_kg       0.890171 -> rapport avident , valorise est dans recycle
+# attente_kg      dechetterie_kg    0.872367 -> rapport as evident, en attente de quoi? de dechetterie?
+#                 collecte_kg       0.807582 -> si decheterie: rapport evident, + de collecte pplus de dechet 
 
 print("############### pandas exercice Jour 3 exo 4 ###################")
 
@@ -194,3 +202,5 @@ df["z"] = df.groupby("categorie")["tx_valorise"].transform(
 print(df[df["z"].abs() > 2])                       # les anomalies
 print(df.loc[df["z"].dropna().abs().nlargest(5).index])     # les 5 plus marquées, même si la liste du dessus est vide
 
+
+print("############### pandas exercice Jour 3 exo 6 ###################")
