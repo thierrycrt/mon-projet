@@ -185,5 +185,12 @@ else:
 # stat, p = stats.f_oneway(*groupes)                # 3 groupes ou plus
 # print(f"valeur-p = {p:.3f}")
 
+print("############### pandas exercice Jour 3 exo 5 ###################")
 
+df["z"] = df.groupby("categorie")["tx_valorise"].transform(
+    lambda s: (s - s.mean()) / s.std()
+)
+
+print(df[df["z"].abs() > 2])                       # les anomalies
+print(df.loc[df["z"].dropna().abs().nlargest(5).index])     # les 5 plus marquées, même si la liste du dessus est vide
 
