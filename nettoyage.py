@@ -54,10 +54,11 @@ df = df[df["site"].isin(["Montreuil"])]
 # --- EXERCICE 7 : ASSERTIONS ET EXPORT ---
 
 # Assertion 1 : Aucun poids négatif
-#Erreur normale: j'ai j'ai supprimé les KG de certaone colonnes, dont les nombres manquant ont été transformé en motenne, la somme n'est plus bonne
+
 assert (df[cols_poids] >= 0).all().all(), (
-    "Erreur : Présence de poids négatifs !"
-)
+    "Erreur : Présence de poids négatifs !"#)
+
+
 
 
 
