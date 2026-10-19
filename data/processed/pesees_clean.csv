@@ -1,7 +1,13 @@
 site,semaine,categorie,collecte_kg,revendu_kg,recycle_kg,dechetterie_kg,attente_kg,collecte_kg_imputed,revendu_kg_imputed,recycle_kg_imputed,dechetterie_kg_imputed,attente_kg_imputed
 Montreuil,8,Textile,1206,249.0,221.0,635,101,False,False,False,False,False
 Montreuil,8,Papier,850,85.0,600.0,100,50,False,True,False,False,False
-Montreuil,8,PlastiqueS,720,80.0,500.0,90,50,False,False,False,False,False
+Montreuil,8,Plastique,720,80.0,500.0,90,50,False,False,False,False,False
+Montreuil,8,Verre,940,50.0,450.0,70,40,False,False,True,False,False
+Montreuil,8,Métal,430,120.0,250.0,40,20,False,False,False,False,False
+Montreuil,8,Plastique,720,80.0,500.0,90,50,False,False,False,False,False
+Montreuil,8,Textile,1300,250.0,250.0,600,200,False,False,False,False,False
+Montreuil,8,Papier,850,85.0,600.0,100,50,False,True,False,False,False
+Montreuil,8,Plastique,720,80.0,500.0,90,50,False,False,False,False,False
 Montreuil,8,Verre,940,50.0,450.0,70,40,False,False,True,False,False
 Montreuil,8,Métal,430,120.0,250.0,40,20,False,False,False,False,False
 Montreuil,8,Plastique,720,80.0,500.0,90,50,False,False,False,False,False
