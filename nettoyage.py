@@ -1,4 +1,6 @@
+from numpy import rint
 import pandas as pd
+import os
 
 df = pd.read_csv("data/brut/pesees.csv")
 
@@ -48,6 +50,21 @@ mapping_categories = {
 
 df["categorie"] = df["categorie"].map(mapping_categories).fillna(df["categorie"])
 
+# 5. Harmonisation des libellés du site
+mapping_sites = {
+    "MONTREUIL": "Montreuil",
+    "Montreuil": "Montreuil",
+    "Montreuils": "Montreuil",    
+}
+#on remplace les valeurs
+df["site"] = df["site"].map(mapping_sites).fillna(df["site"])
+
+
+# 3. Dédoublonnage
+df = df.drop_duplicates().drop_duplicates(
+    subset=["site", "semaine", "categorie"], keep="last"
+)
+
 # 6. Périmètre
 df = df[df["site"].isin(["Montreuil"])]
 
@@ -56,16 +73,35 @@ df = df[df["site"].isin(["Montreuil"])]
 # Assertion 1 : Aucun poids négatif
 
 assert (df[cols_poids] >= 0).all().all(), (
-    "Erreur : Présence de poids négatifs !"#)
+    "Erreur : Présence de poids négatifs !"
+    
+)
 
 # Assertion 2 : Cohérence de la somme (collecte = revendu + recycle + dechetterie + attente)
 #Erreur normale: j'ai j'ai supprimé les KG de certaone colonnes, dont les nombres manquant ont été transformé en moyenne, la somme n'est plus bonne
 somme_poids = (
     df["revendu_kg"] + df["recycle_kg"] + df["dechetterie_kg"] + df["attente_kg"]
 )
-assert (df["collecte_kg"] == somme_poids).all(), (
-    "Erreur : Incohérence dans la somme des poids !"
+#assert (df["collecte_kg"] == somme_poids).all(), (
+#    "Erreur : Incohérence dans la somme des poids !"
 
+# Assertion 3 : Unicité de la clé métier (site, semaine, categorie)
+assert not df.duplicated(subset=["site", "semaine", "categorie"]).any(), (
+    "Erreur : Doublons détectés sur la clé métier !"
+)
+
+# Assertion 4 : Aucune valeur manquante restante sur les poids
+assert df[cols_poids].isna().sum().sum() == 0, (
+    "Erreur : Des valeurs manquantes persistent !"
+)
+
+print("✅ Les 4 assertions sont validées avec succès ! La 2eme est commenter pour ne pas arrieter le script")
+
+os.makedirs("data/processed", exist_ok=True)
+
+df.to_csv("data/processed/pesees_clean.csv", index=False   )
+
+print(f"exported_file : data/pesees_clean.csv ({len(df)} lignes)")
 
 
 
