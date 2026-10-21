@@ -69,9 +69,9 @@ print(collect_total)
 global_sum=df.valorise_kg.sum() / collect_total * 100
 print(f"\nTaux global de valorisation : {global_sum:.1f} %")
 
-constat 1: la part du metal dans le taux de collecte est tres faible 8.5%
-constat 2: le taux de valorisation du metal est le plus haut 86.5%
-constat 3 le textile est tres peu valorisé 38.72%
+# constat 1: la part du metal dans le taux de collecte est tres faible 8.5%
+# constat 2: le taux de valorisation du metal est le plus haut 86.5%
+# constat 3 le textile est tres peu valorisé 38.72%
 
 print("############### pandas exercice Jour 3 exo 2 ###################")
 
@@ -148,8 +148,14 @@ print(paires.sort_values(ascending=False).head(5))
 # recycle_kg      valorise_kg       0.890171 -> rapport avident , valorise est dans recycle
 # attente_kg      dechetterie_kg    0.872367 -> rapport as evident, en attente de quoi? de dechetterie?
 #                 collecte_kg       0.807582 -> si decheterie: rapport evident, + de collecte pplus de dechet 
-#les correlaation sont logique et mecanique
-print("############### pandas exercice Jour 3 exo 4 ###################")
+#les correlation sont logique et mecanique
+
+
+print("############### pandas exercice J3 1 ###################")
+
+# Question : les catégories ont-elles des taux de valorisation différents ?
+# Si oui, la formation au tri cible les catégories faibles.
+# Si non, le problème se joue ailleurs.
 
 
 from scipy import stats
@@ -187,11 +193,10 @@ else:
         print("On ne peut pas affirmer que les taux de valorisation diffèrent selon la catégorie.")
         print("Conséquence : l'écart vu sur le graphique peut n'être que du bruit ; chercher ailleurs.")
 
-    # Prudence : le test dit qu'au moins une catégorie diffère, pas laquelle,
-    # et il ne dit rien des causes.
-# stat, p = stats.ttest_ind(groupes[0], groupes[1])   # 2 groupes
-# stat, p = stats.f_oneway(*groupes)                # 3 groupes ou plus
-# print(f"valeur-p = {p:.3f}")
+    
+# Conclusion : (j' doubler le nombre de ligne pour avoir un resultat)
+# on peut  affirmer que On peut affirmer que les taux de valorisation diffèrent selon la catégorie.
+# Conséquence : cibler la formation au tri sur les catégories les plus faibles.   
 
 print("############### pandas exercice Jour 3 exo 5 ###################")
 
