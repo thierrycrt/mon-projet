@@ -194,7 +194,7 @@ else:
         print("Conséquence : l'écart vu sur le graphique peut n'être que du bruit ; chercher ailleurs.")
 
     
-# Conclusion : (j' doubler le nombre de ligne pour avoir un resultat)
+# Conclusion : (j'ai doubler le nombre de ligne du csv pour avoir un resultat)
 # on peut  affirmer que On peut affirmer que les taux de valorisation diffèrent selon la catégorie.
 # Conséquence : cibler la formation au tri sur les catégories les plus faibles.   
 
