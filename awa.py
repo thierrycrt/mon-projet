@@ -144,14 +144,14 @@ print(paires.sort_values(ascending=False).head(5))
 
 
 # dechetterie_kg  revendu_kg        0.930377 -> aucun rapport
-# collecte_kg     tx_valorise       0.893647 -> rapport evident , valorise est das collecte
-# recycle_kg      valorise_kg       0.890171 -> rapport avident , valorise est dans recycle
+# collecte_kg     tx_valorise       0.893647 -> rapport evident , valorise depend de collecte
+# recycle_kg      valorise_kg       0.890171 -> rapport avident ,  recycle est dans valorise
 # attente_kg      dechetterie_kg    0.872367 -> rapport as evident, en attente de quoi? de dechetterie?
 #                 collecte_kg       0.807582 -> si decheterie: rapport evident, + de collecte pplus de dechet 
-#les correlation sont logique et mecanique
+#les correlations sont logique et mecanique
 
 
-print("############### pandas exercice J3 1 ###################")
+print("############### pandas exercice J 3 exo 4 ###################")
 
 # Question : les catégories ont-elles des taux de valorisation différents ?
 # Si oui, la formation au tri cible les catégories faibles.
@@ -207,5 +207,8 @@ df["z"] = df.groupby("categorie")["tx_valorise"].transform(
 print(df[df["z"].abs() > 2])                       # les anomalies
 print(df.loc[df["z"].dropna().abs().nlargest(5).index])     # les 5 plus marquées, même si la liste du dessus est vide
 
+# 0  Montreuil        8   Textile         1206       249.0       221.0             635         101                False               False               False                   False               False        470.0    38.971808  0.707107
+# 6  Montreuil        8   Textile         1300       250.0       250.0             600         200                False               False               False                   False               False        500.0    38.461538 -0.707107
+#  z le plus haut 0.7 de difference entre deux lignes copier collé avec modif de chiffres
 
 print("############### pandas exercice Jour 3 exo 6 ###################")
