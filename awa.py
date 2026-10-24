@@ -1,6 +1,6 @@
 # Sponsor : responsable d'exploitation · 
-# #Objectif : augmenter le taux de valorisation · 
-# #Décision : où cibler la formation au tri
+# Objectif : augmenter le taux de valorisation · 
+# Décision : où cibler la formation au tri
 
 #quoi chercher: mediane de chaque colonne apr site
 #
@@ -71,7 +71,7 @@ print(f"\nTaux global de valorisation : {global_sum:.1f} %")
 
 # constat 1: la part du metal dans le taux de collecte est tres faible 8.5%
 # constat 2: le taux de valorisation du metal est le plus haut 86.5%
-# constat 3 le textile est tres peu valorisé 38.72%
+# constat 3 le textile est tres bien valorisé par rapport a la moyenne mondiale valorisé 38.72%
 
 print("############### pandas exercice Jour 3 exo 2 ###################")
 
@@ -143,11 +143,12 @@ print("\n=== Les 5 paires les plus corrélées ===")
 print(paires.sort_values(ascending=False).head(5))
 
 
-# dechetterie_kg  revendu_kg        0.930377 -> aucun rapport
-# collecte_kg     tx_valorise       0.893647 -> rapport evident , valorise depend de collecte
-# recycle_kg      valorise_kg       0.890171 -> rapport avident ,  recycle est dans valorise
-# attente_kg      dechetterie_kg    0.872367 -> rapport as evident, en attente de quoi? de dechetterie?
-#                 collecte_kg       0.807582 -> si decheterie: rapport evident, + de collecte pplus de dechet 
+# === Les 5 paires les plus corrélées ===
+# attente_kg      dechetterie_kg    0.936034 -> CORRELATION POSSIBLE:  l'attende se transforme en dechet
+# dechetterie_kg  revendu_kg        0.931491 -> aucune correlation
+# recycle_kg      valorise_kg       0.900707 -> correlation evidente
+# collecte_kg     tx_valorise       0.887331 -> correlation evidente
+# attente_kg      collecte_kg       0.873221 -> correlation evidente
 #les correlations sont logique et mecanique
 
 
@@ -194,16 +195,16 @@ else:
         print("Conséquence : l'écart vu sur le graphique peut n'être que du bruit ; chercher ailleurs.")
 
     
-# Conclusion : (j'ai doubler le nombre de ligne du csv pour avoir un resultat)
-# on peut  affirmer que On peut affirmer que les taux de valorisation diffèrent selon la catégorie.
-# Conséquence : cibler la formation au tri sur les catégories les plus faibles.   
+
+# on ne peut rien afficher les chiffres ne sont pas suffisant pour les analyser
 
 print("############### pandas exercice Jour 3 exo 5 ###################")
+print(df)
 
 df["z"] = df.groupby("categorie")["tx_valorise"].transform(
     lambda s: (s - s.mean()) / s.std()
 )
-
+print(df["z"])
 print(df[df["z"].abs() > 2])                       # les anomalies
 print(df.loc[df["z"].dropna().abs().nlargest(5).index])     # les 5 plus marquées, même si la liste du dessus est vide
 

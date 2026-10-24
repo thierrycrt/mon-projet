@@ -1,0 +1,25 @@
+Voici mes constats d'analyse exploratoire : 
+
+commentaire 1:
+ constat 1: la part du metal dans le taux de collecte est tres faible 8.5%
+ constat 2: le taux de valorisation du metal est le plus haut 86.5%
+ constat 3 le textile a une valorisation de 38.72%, superieure a la moyenne francaise de 33%
+
+commentair 3:
+=== Les 5 paires les plus corrélées ===
+ attente_kg      dechetterie_kg    0.936034 -> CORRELATION POSSIBLE:  l'attende pourrait se transformer en dechet
+ dechetterie_kg  revendu_kg        0.931491 -> aucune correlation
+ recycle_kg      valorise_kg       0.900707 -> correlation evidente
+ collecte_kg     tx_valorise       0.887331 -> correlation evidente
+ attente_kg      collecte_kg       0.873221 -> correlation evidente
+
+commentaire 4:
+on ne peut rien afficher les chiffres ne sont pas suffisant pour les analyser
+
+commentaire 5:
+on ne peut rien afficher les chiffres ne sont pas suffisant pour les analyser
+
+
+Mon sponsor est responsable d'exploitation et son objectif est augmenter le taux de valorisation.
+Quel insight est le plus actionnable pour lui ? Lequel est fragile, et pourquoi ?
+Ensuite, joue mon sponsor : pose-moi 3 questions difficiles sur mes insights, une par une, et attends ma réponse avant de poser la suivante.
