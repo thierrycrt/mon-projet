@@ -1,6 +1,6 @@
 # Sponsor : responsable d'exploitation · 
 # Objectif : augmenter le taux de valorisation · 
-# Décision : où cibler la formation au tri
+# Décision : Sur quelle categorie concentré  les efforts
 
 #quoi chercher: mediane de chaque colonne apr site
 #
