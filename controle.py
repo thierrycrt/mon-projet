@@ -17,4 +17,7 @@ print(f"Lignes : {len(df)}")
 
 print(f"Indicateur principal : {indicateur(df):.1%} ")
 
+# ******************* jour 4 exercice 3**********************************************
 
+sous_ensemble = df[df["site"] == "Montreuil"]
+print(f"Indicateur filtré ({len(sous_ensemble)} ligne(s)) : {sous_ensemble["collecte_kg"].sum():.1f}kg")
