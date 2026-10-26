@@ -1,5 +1,5 @@
 import pandas as pd
-
+# ******************* jour 4 exercice 2 **********************************************
 df=pd.read_csv("data/processed/pesees_propres.csv")
 
 def indicateur(d):
@@ -17,7 +17,7 @@ print(f"Lignes : {len(df)}")
 
 print(f"Indicateur principal : {indicateur(df):.1%} ")
 
-# ******************* jour 4 exercice 3**********************************************
+# ******************* jour 4 exercice 4**********************************************
 
 sous_ensemble = df[df["site"] == "Montreuil"]
 print(f"Indicateur filtré ({len(sous_ensemble)} ligne(s)) : {sous_ensemble["collecte_kg"].sum():.1f}kg")
