@@ -17,3 +17,4 @@ print(f"Lignes : {len(df)}")
 
 print(f"Indicateur principal : {indicateur(df):.1%} ")
 
+
