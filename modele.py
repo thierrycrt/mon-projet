@@ -29,11 +29,11 @@ print(dernieres)
 # 4. Erreur moyenne absolue (MAE) de chaque baseline sur ces 3 semaines
 mae = (dernieres[["naive", "moy_mobile_3"]]
        .sub(dernieres["reel"], axis=0).abs().mean())
-print(mae)
+print(mae)   # naive 21.33 kg | moy_mobile_3 16.00 kg
 
 # 5. Prévision pour la semaine suivante (semaine 9)
-print("Naïve S9 :", serie.iloc[-1]) #21.33333
-print("Moyenne mobile S9 :", serie.tail(3).mean())  #16kg
+print("Naïve S9 :", serie.iloc[-1])                 # 431 kg (valeur de S8)
+print("Moyenne mobile S9 :", serie.tail(3).mean())  # 426.67 kg (moyenne S6-S8)
 
 print("#-------------------------- Jours 6 exo 3 -------------------------")
 import pandas as pd
@@ -189,14 +189,15 @@ modele = Pipeline([
     ("prep", ColumnTransformer([("cat", OneHotEncoder(handle_unknown="ignore"), cat)],
                                remainder="passthrough")),
     #("model", DecisionTreeRegressor(random_state=0)),   # aucune limite de profondeur
-    ("model", DecisionTreeRegressor(max_depth=3, random_state=0)), # limite de profondeur aleatoire
+    ("model", DecisionTreeRegressor(max_depth=3, random_state=0)), # profondeur max 3 (random_state = choix des coupures)
 ])
 modele.fit(X[train], y[train])
 
-print("Arbre  train :", round(mean_absolute_error(y[train], modele.predict(X[train])), 1))  # 0.0
-print("Arbre  test  :", round(mean_absolute_error(y[test],  modele.predict(X[test])), 1))   # 52.5
+# Valeurs : max_depth=3  |  (sans limite)
+print("Arbre  train :", round(mean_absolute_error(y[train], modele.predict(X[train])), 1))  # 39.0  | (0.0)
+print("Arbre  test  :", round(mean_absolute_error(y[test],  modele.predict(X[test])), 1))   # 60.2  | (52.5)
 arbre = modele.named_steps["model"]
-print("Profondeur :", arbre.get_depth(), "| Feuilles :", arbre.get_n_leaves())             # 9 | 72
+print("Profondeur :", arbre.get_depth(), "| Feuilles :", arbre.get_n_leaves())             # 3 | 8 | (9 | 72)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CONSTAT
@@ -216,4 +217,12 @@ print("Profondeur :", arbre.get_depth(), "| Feuilles :", arbre.get_n_leaves())  
 # Conclusion : un MAE d'entraînement à 0 n'est pas une bonne nouvelle, c'est le
 # signal d'alarme. À ne pas retenir sans contraindre l'arbre (max_depth,
 # min_samples_leaf).
+
+# CONSTAT max_depth=3
+# Train 39.0 kg / test 60.2 kg : écart réduit (21.2 kg contre 52.5 kg sans limite),
+#   le sur-apprentissage est corrigé, mais le test n'est pas meilleur.
+#   Avec random_state 1, 2 ou 3 : test 46.8 kg.
+# Contre la baseline (moyenne mobile 37.5 kg) : MOINS BIEN dans tous les cas.
+# 8 feuilles = 8 valeurs possibles pour 18 séries de niveaux très différents :
+#   l'arbre est passé du sur-apprentissage au sous-apprentissage.
 # ─────────────────────────────────────────────────────────────────────────────
