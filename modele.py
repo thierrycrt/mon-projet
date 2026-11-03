@@ -32,8 +32,8 @@ mae = (dernieres[["naive", "moy_mobile_3"]]
 print(mae)
 
 # 5. Prévision pour la semaine suivante (semaine 9)
-print("Naïve S9 :", serie.iloc[-1])
-print("Moyenne mobile S9 :", serie.tail(3).mean())
+print("Naïve S9 :", serie.iloc[-1]) #21.33333
+print("Moyenne mobile S9 :", serie.tail(3).mean())  #16kg
 
 print("#-------------------------- Jours 6 exo 3 -------------------------")
 import pandas as pd
