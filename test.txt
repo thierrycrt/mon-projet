@@ -1,0 +1,27 @@
+- Sponsor: Operations Manager
+- Objective: Increase the valuation rate
+- Decision: Target the categories to focus on.
+
+6 Rows, 1 week, 1site 
+
+Sans titre
+
+- Sponsor: Operations Manager
+- Objective: Increase the valuation rate
+- Decision: Target the categories to focus on.
+
+6 Rows, 1 week, 1site 
+
+Sans titre
+
+`UC-01 Forecast flows by category` (1)
+
+UC-03 Rapport par region (1)
+
+UC-04 Reception limit (1)
+
+UC-05 Sorting assistant (1)
+
+UC-06 Objet recognition (1)
+
+UC-02 to value the share of each flow in kg (1)
