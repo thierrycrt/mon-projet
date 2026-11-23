@@ -44,9 +44,11 @@ for nom, alerte in [("Règle : déborde si S-1 a débordé", regle)] + \
 
 # Que se passe-t-il quand on baisse le seuil, de 0,7 à 0,05 ?
 # Plus on baisse , plus on a de debordements detectes, les rappel  augmentent, mais aussi plus de fausses alertes la precision diminue.
-# plus on baisse les seuil moins le modele est exigent et moins il est precis
+# mais plus on a un resultat significatif.
 
-# Qu’est-ce qui coûte le plus cher sur le terrain, un débordement raté ou une fausse alerte ? Quel seuil choisissez-vous ?
+# Qu’est-ce qui coûte le plus cher sur le terrain, un débordement raté ou une fausse alerte ? 
+# sur le terrain, un faux positif a l'air plus facile à gerer qu'un debordement reel
+# Quel seuil choisissez-vous ?
 # Dans se cas precis, il vaut mieux connaitre les debordements detectes, donc on choisit le seuil de "attrapés 9, raté 0 et fausse alerte 1"
 # seuil 0.1
 

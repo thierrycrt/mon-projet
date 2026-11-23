@@ -3,3 +3,5 @@ __pycache__/
 data/brut/
 previsions_S9.csv
 modele.joblib
+mlflow.db
+mlruns/
