@@ -1,7 +1,7 @@
 """Variables du modèle de prévision des kg partis en déchetterie (J7)."""
 import pandas as pd
 
-def charger(chemin="data/pesees_propres.csv"):
+def charger(chemin="data/processed/pesees_propres.csv"):
     """Charge les pesées et les trie : les décalages dépendent de l'ordre des semaines."""
     df = pd.read_csv(chemin)
     return df.sort_values(["site", "categorie", "semaine"]).reset_index(drop=True)
