@@ -67,4 +67,4 @@ for nom, (modele, X) in ESSAIS.items():
         lignes.append({"essai": nom, **m, "duree_fit_s": duree})
 
 tableau = pd.DataFrame(lignes).sort_values("mae")
-print(tableau.round({"mae": 1, "rmse": 1, "mape": 1, "pire_erreur": 0, "duree_fit_s": 3}).to_string(index=False))
+print(tableau.round({"mae": 1, "rmse": 1, "mape": 1, "pire_erreur": 0, "duree_fit_s": 3}).to_string(index=False))  
