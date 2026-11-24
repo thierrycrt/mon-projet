@@ -12,7 +12,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.tree import DecisionTreeRegressor
 
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
-mlflow.set_experiment("my-experiment")
+#mlflow.set_experiment("my-experiment")
 
 from features import DIMENSIONS, construire
 
